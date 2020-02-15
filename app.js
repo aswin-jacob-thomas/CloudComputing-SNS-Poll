@@ -47,7 +47,10 @@ app.post("/hashPage", (req,res,next) => {
   let message = body["Message"]
   let parsedBody = JSON.parse(message)
   let key = parsedBody["Records"][0]["s3"]["object"]["key"]
-
+  if(key.endsWith("hash")){
+     console.log("The key is now that of the hashed version of the contents. Ignore!");
+     return res.send(200);
+  }
   let params = {
     Bucket: 'staticwebpagesbucket',
     Key: key
