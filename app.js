@@ -41,7 +41,12 @@ app.get("/hashPage", (req,res,next) => {
 })
 
 app.post("/hashPage", (req,res,next) => {
+  console.log(req.headers)
+  console.log("The body of the request is ")
   console.log(req.body);
+  console.log("If there is a payload")
+  if(req.payload!=null)
+    console.log(req.payload)
   res.send(200);
 })
 
