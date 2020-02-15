@@ -21,7 +21,7 @@ s3 = new AWS.S3({apiVersion: '2006-03-01'});
 
 
 app.get("/hashPage", (req,res,next) => {
-    var bucketParams = {
+      var bucketParams = {
         Bucket : 'staticwebpagesbucket',
       };
       
@@ -40,12 +40,24 @@ app.get("/hashPage", (req,res,next) => {
 })
 
 app.post("/hashPage", (req,res,next) => {
-  console.log(req.headers)
-  console.log("The body of the request is ")
-  console.log(req.body);
-  console.log("If there is a payload")
-  if(req.payload!=null)
-    console.log(req.payload)
+
+  let body = req.body
+  let parsedBody = JSON.parse(body)
+  let key = parsedBody["Records"][0]["s3"]["object"]["key"]
+  
+  let params = {
+    Bucket: 'staticwebpagesbucket', 
+    Key: key 
+  }
+  
+  s3.getObject(params, function (err, data) {
+
+    if (err) {
+        console.log(err);
+    } else {
+        console.log(data.Body.toString()); //this will log data to console
+    }})
+
   res.send(200);
 })
 
