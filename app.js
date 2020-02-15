@@ -6,8 +6,7 @@ const app = express();
 const port = 80;
 
 app.use(cors())
-app.use(bodyParser.urlencoded({extended: false}));
-app.use(bodyParser.json());
+app.use(bodyParser.text());
 AWS.config.getCredentials(function(err) {
     if (err) console.log(err.stack);
     // credentials not loaded
