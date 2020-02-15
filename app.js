@@ -26,10 +26,14 @@ app.get("/hashPage", (req,res,next) => {
       s3.listObjects(bucketParams, function(err, data) {
         if (err) {
           console.log("Error", err);
+          res.send(500).json({
+            error: err
+        })
         } else {
           console.log("Success", data);
         }
       });
+      res.status(200).json(data);
 })
 app.listen(port, (req,res,next) => {
     console.log(`The app is listening at the port $port`)
