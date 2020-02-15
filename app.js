@@ -1,10 +1,13 @@
 const AWS = require('aws-sdk');
 const express = require('express')
 const cors = require('cors')
+const bodyParse = require('body-parser')
 const app = express();
 const port = 80;
 
 app.use(cors())
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
 AWS.config.getCredentials(function(err) {
     if (err) console.log(err.stack);
     // credentials not loaded
@@ -38,7 +41,7 @@ app.get("/hashPage", (req,res,next) => {
 })
 
 app.post("/hashPage", (req,res,next) => {
-  console.log(req);
+  console.log(req.body);
   res.send(200);
 })
 
