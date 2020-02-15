@@ -60,13 +60,14 @@ app.post("/hashPage", (req,res,next) => {
     } else {
     let contents = data.Body.toString(); 
     let hashValue = crypto.createHash('sha256').update(contents).digest('hex');
-    var uploadParams = {Bucket: 'staticwebpagesbucket', Key: key+'/hash', Body: hashValue};
+    let uploadKey = key+'/hash'
+    var uploadParams = {Bucket: 'staticwebpagesbucket', Key: uploadKey, Body: hashValue};
     s3.upload (uploadParams, function (err, data) {
       if (err) {
         console.log("Error", err);
       } if (data) {
         console.log("Upload Success", data.Location);
-        res.send(200);
+        return res.send(200);
       }
     });
 
