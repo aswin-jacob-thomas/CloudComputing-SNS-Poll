@@ -42,7 +42,9 @@ app.get("/hashPage", (req,res,next) => {
 app.post("/hashPage", (req,res,next) => {
 
   let body = req.body
-  let parsedBody = JSON.parse(body)
+  body = JSON.parse(body)
+  let message = body["Message"]
+  let parsedBody = JSON.parse(message)
   let key = parsedBody["Records"][0]["s3"]["object"]["key"]
   
   let params = {
