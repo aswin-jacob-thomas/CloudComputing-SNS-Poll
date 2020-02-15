@@ -36,6 +36,12 @@ app.get("/hashPage", (req,res,next) => {
       });
       
 })
+
+app.post("/hashPage", (req,res,next) => {
+  console.log(req);
+  res.send(200);
+})
+
 app.listen(port, (req,res,next) => {
     console.log(`The app is listening at the port $port`)
 })
