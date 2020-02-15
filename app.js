@@ -24,7 +24,7 @@ app.get("/hashPage", (req,res,next) => {
       var bucketParams = {
         Bucket : 'staticwebpagesbucket',
       };
-      
+
       s3.listObjects(bucketParams, function(err, data) {
         if (err) {
           console.log("Error", err);
@@ -36,18 +36,20 @@ app.get("/hashPage", (req,res,next) => {
           res.status(200).json(data);
         }
       });
-      
+
 })
 
 app.post("/hashPage", (req,res,next) => {
 
   let body = req.body
-  let parsedBody = JSON.parse(body)
+  body = JSON.parse(body)
+  let message = body["Message"]
+  let parsedBody = JSON.parse(message)
   let key = parsedBody["Records"][0]["s3"]["object"]["key"]
-  
+
   let params = {
-    Bucket: 'staticwebpagesbucket', 
-    Key: key 
+    Bucket: 'staticwebpagesbucket',
+    Key: key
   }
   
   s3.getObject(params, function (err, data) {
