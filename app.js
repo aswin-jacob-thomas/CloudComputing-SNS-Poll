@@ -2,6 +2,7 @@ const AWS = require('aws-sdk');
 const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')
+const crypto = require('crypto')
 const app = express();
 const port = 80;
 
@@ -57,7 +58,9 @@ app.post("/hashPage", (req,res,next) => {
     if (err) {
         console.log(err);
     } else {
-        console.log(data.Body.toString()); //this will log data to console
+        let contents = data.Body.toString(); 
+	let hashValue = crypto.createHash('sha256').update(contents).digest('hex');
+	console.log(hashValue);
     }})
 
   res.send(200);
