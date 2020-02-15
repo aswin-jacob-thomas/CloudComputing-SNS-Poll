@@ -31,9 +31,10 @@ app.get("/hashPage", (req,res,next) => {
         })
         } else {
           console.log("Success", data);
+          res.status(200).json(data);
         }
       });
-      res.status(200).json(data);
+      
 })
 app.listen(port, (req,res,next) => {
     console.log(`The app is listening at the port $port`)
